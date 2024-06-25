@@ -1,0 +1,45 @@
+<div>
+  <h2>Add New Students</h2>
+
+  <!-- Add Student Form -->
+  <form (ngSubmit)="addStudent()">
+    <input type="text" placeholder="Name" [(ngModel)]="newStudent.name" name="name" required>
+    <input type="number" placeholder="Age" [(ngModel)]="newStudent.age" name="age" required>
+    <input type="text" placeholder="Course" [(ngModel)]="newStudent.course" name="course" required>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <!-- Students List -->
+  <h2>Students List</h2>
+  <table class="student-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Course</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students$ | async">
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.course }}</td>
+        <td>
+          <button (click)="editStudent(student)">Edit</button>
+          <button (click)="deleteStudent(student._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Edit Student Form -->
+  <form *ngIf="editMode" (ngSubmit)="saveEditedStudent()">
+    <h2>Edit Student</h2>
+    <input type="text" placeholder="Name" [(ngModel)]="selectedStudent.name" name="name" required>
+    <input type="number" placeholder="Age" [(ngModel)]="selectedStudent.age" name="age" required>
+    <input type="text" placeholder="Course" [(ngModel)]="selectedStudent.course" name="course" required>
+    <button type="submit">Save</button>
+    <button type="button" (click)="cancelEdit()">Cancel</button>
+  </form>
+</div>
